@@ -13,7 +13,8 @@ input.focus();
 let hasDecimal = false,
     num1 = "",
     num2 = "",
-    symbol = "";
+    symbol = "",
+    ans = "";
 
 function sum(a,b) {return a + b};
 function difference(a,b) {return a - b};
@@ -21,7 +22,6 @@ function product(a,b) {return a * b};
 function quotient(a,b) {return a / b};
 
 function operate(a,b,operator) {
-    let ans = 0;
     switch (operator) {
         case " + ":
             ans = sum(a,b);
@@ -29,10 +29,10 @@ function operate(a,b,operator) {
         case " - ":
             ans = difference(a,b);
             break;
-        case " * ":
+        case " × ":
             ans = product(a,b);
             break;
-        case " / ":
+        case " ÷ ":
             b == 0? ans = "You cannot do that." : 
             ans = quotient(a,b);
             break;
@@ -44,7 +44,8 @@ function operate(a,b,operator) {
 };
 
 numbers.forEach((num) => {
-    num.addEventListener("click", (e) => {  
+    num.addEventListener("click", (e) => { 
+        if (!ans == "") reset();
         if (e.target.value == "." && hasDecimal) {
             // Do nothing;
         }
@@ -71,10 +72,10 @@ operators.forEach(operator => {
         }
         else {
             hasDecimal = false;
-            if (!symbol == "" && !num2 == "") {equal()}
-            log.textContent = num1 + e.target.value;
-            symbol = e.target.value;
             input.value = "";
+            symbol = e.target.value;
+            log.textContent = num1 + e.target.value;
+            if (!symbol == "" && !num2 == "") {equal()}
         }
         
     })
@@ -87,16 +88,26 @@ const equal = function() {
     operate(num1,num2,symbol);
 };
 
-equals.addEventListener("click", equal)
+equals.addEventListener("click", () => {
+    if (num1 == "" || symbol == "" || num2 == "") {
+        input.value = "";
+    }
+    else {
+        equal();
+    }
+});
 
 backspace.addEventListener("click", (e) => {
-})
+    input.value = input.value.slice(0,-1);
+});
 
-clear.addEventListener("click", () => {
+clear.addEventListener("click", reset);
+
+function reset() {
     input.value = "";
     log.textContent = "";
     num1 = "";
     num2 = "";
     symbol = "";
-})
-
+    ans = "";
+}

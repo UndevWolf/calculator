@@ -3,6 +3,11 @@
     margin: 0px;
     border-radius: 10px;
 }
+@font-face {
+    font-family: digitalFont;
+    src: url('assets/digital.woff');
+    font-weight: bold;
+}
 body {
     display:flex;
     justify-content:center;
@@ -10,9 +15,10 @@ body {
     height: 100vh;
 }
 .container {
-    background-color: rgb(10, 150, 206);
+    background-color: rgb(80, 83, 83);
     border: solid 5px rgb(71, 71, 71);
-    padding: 10px;
+    box-shadow: 10px 10px 5px #3a3939;
+    padding: 25px 10px 60px 10px;
     margin-top: 50px;
     display: grid;
     grid-gap: 5px;
@@ -29,21 +35,39 @@ body {
 .log {
     height: 20px;
     padding: 3px;
+    margin-bottom: 5px;
+    font-family: digitalFont;
 }
 .text-field {
     grid-area: log;
-    background-color: white;
+    background-color: rgb(81, 126, 92);
     border: solid 2px;
+    padding: 5px;
+    height: 85px;
 }
 #input-field {
     grid-area: input;
-    height:30px;
+    background-color: rgb(81, 126, 92);
+    height:40px;
     width: 100%;
-    font-size: 25px;
+    font-size: 30px;
     border: none;
+    font-family: digitalFont;
 }
 input:focus {
     outline: none;
+}
+button {
+    height: 50px;
+    width: 100%;
+    font-size: 30px;
+}
+.num,.equals {
+    background-color: rgb(53, 51, 48);
+    color:white;
+}
+.operator {
+    background-color: rgb(206, 202, 202);
 }
 .one {
     grid-area: one;
@@ -92,14 +116,12 @@ input:focus {
 }
 .clear {
     grid-area: clear;
+    background-color: rgb(209, 141, 51);
 }
 .decimal {
     grid-area: decimal;
 }
 .backspace {
     grid-area: backspace;
-}
-button {
-    height: 50px;
-    width: 100%;
+    background-color: rgb(209, 141, 51);
 }
