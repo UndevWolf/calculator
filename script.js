@@ -1,55 +1,86 @@
-const one = document.querySelector(".one");
-const two = document.querySelector(".two");
-const three = document.querySelector(".three");
-const four = document.querySelector(".four");
-const five = document.querySelector(".five");
-const six = document.querySelector(".six");
-const seven = document.querySelector(".seven");
-const eight = document.querySelector(".eight");
-const nine = document.querySelector(".nine");
-const zero = document.querySelector(".zero");
-const plus = document.querySelector(".plus");
-const minus = document.querySelector(".minus");
-const multiply = document.querySelector(".multiply");
-const divide = document.querySelector(".divide");
+const log = document.querySelector(".log")
 const equals = document.querySelector(".equals");
 const clear = document.querySelector(".clear");
 const decimal = document.querySelector(".decimal");
+const backspace = document.querySelector(".backspace");
 const input = document.querySelector("#input-field");
 const buttons = document.querySelectorAll("button");
-const numbers = document.querySelectorAll(".num")
+const numbers = document.querySelectorAll(".num");
+const operators = document.querySelectorAll(".operator");
+const debug = document.querySelector(".debug");
 
 input.focus();
-let num1,
-    num2,
-    operator;
+let debugText = "",
+    num1 = "",
+    num2 = "",
+    symbol = "";
 
 function sum(a,b) {return a + b};
 function difference(a,b) {return a - b};
 function product(a,b) {return a * b};
 function quotient(a,b) {return a / b};
+
 function operate(a,b,operator) {
     let ans = 0;
     switch (operator) {
-        case "+":
+        case " + ":
             ans = sum(a,b);
             break;
-        case "-":
+        case " - ":
             ans = difference(a,b);
             break;
-        case "*":
+        case " * ":
             ans = product(a,b);
             break;
-        case "/":
+        case " / ":
             ans = quotient(a,b);
             break;
     }
     input.value = ans;
+    num1 = ans;
+    num2 = "";
 };
 
 numbers.forEach((num) => {
     num.addEventListener("click", (e) => {
         input.value += e.target.value;
-        num1 = e.target.value;
+        if (symbol == "") {
+            num1 += e.target.value
+         }
+         else {
+            num2 += e.target.value;
+         } 
+        if (e.target.value == ".") decimal.disabled = true;
     })
+});
+
+operators.forEach(operator => {
+    operator.addEventListener("click", (e) => {
+        decimal.disabled = false;
+        if (!symbol == "" && !num2 == "") {equal()}
+        log.textContent = num1 + e.target.value;
+        symbol = e.target.value;
+        input.value = "";
+    })
+});
+const equal = function() {
+    decimal.disabled = false;
+    log.textContent += num2;
+    num1 = Number(num1);
+    num2 = Number(num2);
+    operate(num1,num2,symbol);
+};
+
+equals.addEventListener("click", equal)
+
+backspace.addEventListener("click", (e) => {
 })
+
+clear.addEventListener("click", () => {
+    input.value = "";
+    log.textContent = "-";
+    num1 = "";
+    num2 = "";
+    symbol = "";
+})
+
