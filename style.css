@@ -18,7 +18,6 @@ body {
     grid-gap: 5px;
     grid-template-areas:
         "log log log log"
-        "input input input input"
         "backspace backspace clear clear"
         "one two three plus"
         "four five six minus"
@@ -28,10 +27,23 @@ body {
     grid-template-rows: auto;
 }
 .log {
+    height: 20px;
+    padding: 3px;
+}
+.text-field {
     grid-area: log;
+    background-color: white;
+    border: solid 2px;
 }
 #input-field {
     grid-area: input;
+    height:30px;
+    width: 100%;
+    font-size: 25px;
+    border: none;
+}
+input:focus {
+    outline: none;
 }
 .one {
     grid-area: one;

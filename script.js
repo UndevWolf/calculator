@@ -10,7 +10,7 @@ const operators = document.querySelectorAll(".operator");
 const debug = document.querySelector(".debug");
 
 input.focus();
-let debugText = "",
+let hasDecimal = false,
     num1 = "",
     num2 = "",
     symbol = "";
@@ -33,39 +33,55 @@ function operate(a,b,operator) {
             ans = product(a,b);
             break;
         case " / ":
+            b == 0? ans = "You cannot do that." : 
             ans = quotient(a,b);
             break;
     }
     input.value = ans;
     num1 = ans;
-    num2 = "";
+    num2 = num2;
+    if (num1 % 1 != 0) hasDecimal = true;
 };
 
 numbers.forEach((num) => {
-    num.addEventListener("click", (e) => {
-        input.value += e.target.value;
+    num.addEventListener("click", (e) => {  
+        if (e.target.value == "." && hasDecimal) {
+            // Do nothing;
+        }
+        else if (e.target.value == "." && !hasDecimal) {
+            input.value += e.target.value;
+            hasDecimal = true;
+        }
+        else {
+            input.value += e.target.value;
+        }
         if (symbol == "") {
-            num1 += e.target.value
-         }
-         else {
-            num2 += e.target.value;
-         } 
-        if (e.target.value == ".") decimal.disabled = true;
+                num1 = input.value;
+            }
+        else {
+                num2 = input.value;
+            }
     })
 });
 
 operators.forEach(operator => {
     operator.addEventListener("click", (e) => {
-        decimal.disabled = false;
-        if (!symbol == "" && !num2 == "") {equal()}
-        log.textContent = num1 + e.target.value;
-        symbol = e.target.value;
-        input.value = "";
+        if (num1 == "") {
+            input.value = "";
+        }
+        else {
+            hasDecimal = false;
+            if (!symbol == "" && !num2 == "") {equal()}
+            log.textContent = num1 + e.target.value;
+            symbol = e.target.value;
+            input.value = "";
+        }
+        
     })
 });
 const equal = function() {
-    decimal.disabled = false;
-    log.textContent += num2;
+    hasDecimal = false;
+    log.textContent = num1 + symbol + num2;
     num1 = Number(num1);
     num2 = Number(num2);
     operate(num1,num2,symbol);
@@ -78,7 +94,7 @@ backspace.addEventListener("click", (e) => {
 
 clear.addEventListener("click", () => {
     input.value = "";
-    log.textContent = "-";
+    log.textContent = "";
     num1 = "";
     num2 = "";
     symbol = "";
