@@ -8,6 +8,7 @@ const buttons = document.querySelectorAll("button");
 const numbers = document.querySelectorAll(".num");
 const operators = document.querySelectorAll(".operator");
 const debug = document.querySelector(".debug");
+const footer = document.querySelector(".copyright");
 
 input.focus();
 let hasDecimal = false,
@@ -26,14 +27,15 @@ function operate(a,b,operator) {
         case "-":
             ans = a - b;
             break;
-        case "×","*":
+        case "*":
             ans = a * b;
             break;
-        case "÷","/":
+        case "/":
             b == 0? ans = "oops!" : 
             ans = a / b;
             break;
     }
+    ans = Math.round(ans * 100) / 100
     return ans;
 };
 
@@ -56,10 +58,12 @@ numbers.forEach((num) => {
 });
 function numberHandler(e) {
     if (resetTrigger) {reset(); resetTrigger = false;}
+    if (input.textContent.length == 15) {return}
     let eventType;
     typeof e === "string" ? eventType = e: eventType = e.target.value;
-
+    
     input.textContent += eventType;
+    
 
     if (symbol == "") {
             num1 = input.textContent;
@@ -74,6 +78,7 @@ operators.forEach(operator => {
 });
 function operatorHandler(e) {
     let eventType;
+    let logSymbol;
     typeof e === "string" ? eventType = e: eventType = e.target.value;
 
     if (num1 == "") {
@@ -82,7 +87,10 @@ function operatorHandler(e) {
     else {
         hasDecimal = false;
         input.textContent = "";
-        log.textContent = num1 + eventType;
+        if (eventType == "*") {logSymbol = "×"}
+        else if (eventType == "/") {logSymbol = "÷"}
+        else {logSymbol = eventType};
+        log.textContent = num1 + logSymbol;
         if (!symbol == "" && !num2 == "") {
             equal();
             operatorHandler(e);
@@ -94,12 +102,16 @@ function operatorHandler(e) {
 
 equals.addEventListener("click", equal);
 function equal() {
+    let logSym;
     if (num1 == "" || symbol == "" || num2 == "") {
         reset();
     }
     else {
         hasDecimal = false;
-        log.textContent = num1 + symbol + num2;
+        if (symbol == "*") {logSym = "×"}
+        else if (symbol == "/") {logSym = "÷"}
+        else {logSym = symbol};
+        log.textContent = num1 + logSym + num2;
         num1 = Number(num1);
         num2 = Number(num2);
         input.textContent = operate(num1,num2,symbol);
@@ -138,3 +150,5 @@ document.addEventListener("keydown", (e) => {
     else if (["0","1","2","3","4","5","6","7","8","9",].includes(key)) {numberHandler(key)}
     else if (["+","-","*","/"].includes(key)) {operatorHandler(key)}
 });
+
+footer.textContent += " © " + new Date().getFullYear() ;

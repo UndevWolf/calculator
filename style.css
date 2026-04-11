@@ -12,16 +12,24 @@ body {
     background-color: rgb(184, 180, 176);
     display:flex;
     justify-content:center;
+    gap: 50px;
     align-items:start;
-    height: 100vh;
+}
+.quote {
+    align-self: center;
+    font-style: italic;
+    text-align: right;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
 .container {
     flex-shrink: 0;
     width: 400px;
-    background-color: rgb(80, 83, 83);
-    border: solid 5px rgb(71, 71, 71);
+    background-color: rgb(25, 26, 26);
+    border: solid 5px rgb(43, 42, 42);
     box-shadow: 10px 10px 5px #3a3939;
-    padding: 35px 10px 80px 10px;
+    padding: 35px 10px 10px 10px;
     margin-top: 50px;
     display: grid;
     grid-gap: 10px;
@@ -31,9 +39,22 @@ body {
         "one two three plus"
         "four five six minus"
         "seven eight nine multiply"
-        "decimal zero equals divide";
+        "decimal zero equals divide"
+        "footer footer . . ";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
+}
+footer {
+    color:rgb(92, 92, 92);
+    grid-area: footer;
+    margin-top: 70px;
+}
+a {
+    color: rgb(92, 92, 92);
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(148, 148, 148);
 }
 .text-field {
     display:flex;
