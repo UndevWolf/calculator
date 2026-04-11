@@ -9,19 +9,22 @@
     font-weight: bold;
 }
 body {
+    background-color: rgb(184, 180, 176);
     display:flex;
     justify-content:center;
     align-items:start;
     height: 100vh;
 }
 .container {
+    flex-shrink: 0;
+    width: 400px;
     background-color: rgb(80, 83, 83);
     border: solid 5px rgb(71, 71, 71);
     box-shadow: 10px 10px 5px #3a3939;
-    padding: 25px 10px 60px 10px;
+    padding: 35px 10px 80px 10px;
     margin-top: 50px;
     display: grid;
-    grid-gap: 5px;
+    grid-gap: 10px;
     grid-template-areas:
         "log log log log"
         "backspace backspace clear clear"
@@ -32,37 +35,45 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
 }
+.text-field {
+    display:flex;
+    flex-direction:column;
+    grid-area: log;
+    background-color: rgb(62, 102, 72);
+    border: solid 2px;
+    padding: 5px;
+    height: 85px;
+    margin-bottom: 10px;
+}
 .log {
+    flex:1;
     height: 20px;
     padding: 3px;
     margin-bottom: 5px;
     font-family: digitalFont;
 }
-.text-field {
-    grid-area: log;
-    background-color: rgb(81, 126, 92);
-    border: solid 2px;
-    padding: 5px;
-    height: 85px;
-}
 #input-field {
+    flex: 1;
     grid-area: input;
-    background-color: rgb(81, 126, 92);
+    background-color: rgb(67, 102, 72);
     height:40px;
-    width: 100%;
+    width: 300px;
     font-size: 30px;
     border: none;
     font-family: digitalFont;
+    color: transparent;
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    text-overflow: clip;
 }
 input:focus {
     outline: none;
 }
 button {
-    height: 50px;
+    height: 70px;
     width: 100%;
     font-size: 30px;
 }
-.num,.equals {
+.num,.equals,.decimal {
     background-color: rgb(53, 51, 48);
     color:white;
 }
