@@ -35,6 +35,7 @@ function operate(a,b,operator) {
             ans = a / b;
             break;
     }
+    if (ans == "oops!") {return ans}
     ans = Math.round(ans * 100) / 100
     return ans;
 };
@@ -44,12 +45,6 @@ function decimalHandler() {
     if (!hasDecimal) {
             input.textContent += ".";
             hasDecimal = true;
-    }
-};
-
-function shorten() {                                //unfinished
-    if (input.textContent.length == 14) {
-        input.textContent.slice(0,-1);
     }
 };
 
