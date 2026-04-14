@@ -37,6 +37,7 @@ function operate(a,b,operator) {
     }
     if (ans == "oops!") {return ans}
     ans = Math.round(ans * 100) / 100
+    if (ans.length > 14) {ans.toExponential(2)}
     return ans;
 };
 
